@@ -3,7 +3,8 @@ import { App } from "./App";
 import { Home } from "./pages/Home";
 import { MyRecipes } from "./pages/MyRecipes";
 import { Discover } from "./pages/Discover";
-import { NewRecipe } from "./pages/NewRecipe";
+import { Recipe } from "./pages/Recipe";
+import { NewRecipeContainer } from "./pages/NewRecipeContainer";
 
 export const Router = () => {
   return (
@@ -12,7 +13,8 @@ export const Router = () => {
         <Route index element={<Home />} />
         <Route path="my-recipes" element={<MyRecipes />} />
         <Route path="discover" element={<Discover />} />
-        <Route path="new-recipe" element={<NewRecipe />} />
+        <Route path="new-recipe" element={<NewRecipeContainer />} />
+        <Route path="recipe/:id" element={<Recipe />} />
       </Route>
     </Routes>
   );

@@ -22,7 +22,9 @@ export const RecipeCard = ({
         <p>🕛 {timeInMinutes}mn</p>
         <div className="flex gap-2">
           {tags.map((tag) => (
-            <div className="rounded-xl px-2 bg-gray-200">{tag}</div>
+            <div className="rounded-xl px-2 bg-gray-200 text-sm flex items-center">
+              {tag}
+            </div>
           ))}
         </div>
       </div>

@@ -1,29 +1,7 @@
 import { useQuery } from "react-query";
 import { RecipeCard } from "../components/RecipeCard";
-import * as z from "zod";
 import { Link } from "react-router";
-
-const fetchRecipes = async () => {
-  const url = "http://localhost:3000/recipes";
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`Response status: ${response.status}`);
-  }
-
-  const data = await response.json();
-
-  const schema = z.array(
-    z.object({
-      id: z.string(),
-      name: z.string(),
-      difficulty: z.number(),
-      tags: z.array(z.string()),
-      timeInMinutes: z.number(),
-    })
-  );
-
-  return schema.parse(data);
-};
+import { fetchRecipes } from "../api/fetchRecipes";
 
 export const MyRecipes = () => {
   const recipes = useQuery("recipes", fetchRecipes);
@@ -67,14 +45,16 @@ export const MyRecipes = () => {
       </div>
       <div className="grid grid-cols-3 mt-5 gap-5">
         {recipes.data?.map((recipe) => (
-          <RecipeCard
-            key={recipe.id}
-            difficulty={recipe.difficulty}
-            name={recipe.name}
-            tags={recipe.tags}
-            timeInMinutes={recipe.timeInMinutes}
-            imageUrl="https://media.istockphoto.com/id/177413384/fr/photo/p%C3%A2tes-alla-carbonara.jpg?s=612x612&w=0&k=20&c=2kua_mU_IWUrcEaU1MMBCwx-JdCNzzL1m4MtZsnl_L8="
-          />
+          <Link to={`/recipe/${recipe.id}`}>
+            <RecipeCard
+              key={recipe.id}
+              difficulty={recipe.difficulty}
+              name={recipe.name}
+              tags={recipe.tags}
+              timeInMinutes={recipe.timeInMinutes}
+              imageUrl="https://media.istockphoto.com/id/177413384/fr/photo/p%C3%A2tes-alla-carbonara.jpg?s=612x612&w=0&k=20&c=2kua_mU_IWUrcEaU1MMBCwx-JdCNzzL1m4MtZsnl_L8="
+            />
+          </Link>
         ))}
       </div>
     </div>
